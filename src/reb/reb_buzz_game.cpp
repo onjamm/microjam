@@ -1,6 +1,8 @@
 #include "reb_buzz_game.h"
 
 #include "bn_keypad.h"
+#include <bn_rect.h>
+#include <bn_size.h>
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_animate_actions.h"
 
@@ -29,16 +31,27 @@ namespace reb
 
     void reb_buzz_game::fade_in([[maybe_unused]] const mj::game_data& data)
     {
-        _playerSprite.set_position(0, 0);
         _flowerSprite.set_position(-100, 0);
+        _playerSprite.set_position(0, 0);
+    }
+
+    /**
+     * Creates a rectangle centered at a sprite's location with a given size.
+     * sprite the sprite to center the box around
+     * box_size the dimensions of the bounding box
+     */
+    bn::rect create_bounding_box(bn::sprite_ptr sprite) {
+        return bn::rect(sprite.x().round_integer(),
+                        sprite.y().round_integer(),
+                        4,
+                        4);
     }
 
     mj::game_result reb_buzz_game::play([[maybe_unused]] const mj::game_data& data)
     {
         _beeAnimation->update();
-
-        mj::game_result result;
         _victory = false;
+
         bn::fixed player_speed = 2;
         if(bn::keypad::left_held()) {
             _playerSprite.set_x(_playerSprite.x() - player_speed);
@@ -53,11 +66,15 @@ namespace reb
             _playerSprite.set_y(_playerSprite.y() + player_speed);
         }
 
-        // TODO: Add bounding boxes to check if player and flower are in the same place
-        if (_playerSprite.y() == _flowerSprite.y() && _playerSprite.x() == _flowerSprite.x())
+        bn::rect bee_bounding_box = create_bounding_box(_playerSprite);
+        bn::rect flower_bounding_box = create_bounding_box(_flowerSprite);
+
+        if (bee_bounding_box.intersects(flower_bounding_box))
         {
             _victory = true;
         }
+
+        mj::game_result result(victory(), false);
 
         return result;
     }
