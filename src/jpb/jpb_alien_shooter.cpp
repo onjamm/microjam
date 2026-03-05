@@ -1,4 +1,20 @@
 #include "jpb/jpb_alien_shooter.h"
+#include "mj/mj_game_list.h"
+
+namespace
+{
+    constexpr bn::string_view code_credits[] = { "Johncarlo", "John Baltazar" };
+    constexpr bn::string_view graphics_credits[] = { "Kenney Game Assets" };
+    constexpr bn::string_view sfx_credits[] = {""};
+    constexpr bn::string_view music_credits[] = {""};
+}
+
+MJ_GAME_LIST_ADD(jpb::jpb_alien_shooter) 
+MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
+MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
+MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
+MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
+
 
 namespace jpb {
     jpb_alien_shooter::jpb_alien_shooter([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
