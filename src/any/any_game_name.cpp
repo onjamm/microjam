@@ -1,4 +1,5 @@
 #include "any_game_name.h"
+#include "bn_sprite_items_astronaut.h"
 
 #include "bn_keypad.h"
 #include "bn_display.h"
@@ -24,27 +25,37 @@ namespace any {
 
 any_game_name::any_game_name([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
     mj::game("any")
-    {}
+    {
+        _astronaut_sprite = bn::sprite_items::astronaut.create_sprite(0, -20);
+        _player.emplace(*_astronaut_sprite);
+    }
 
 
 
 bn::string<16> any_game_name::title() const {
-    return "testing skeleton";
+    return "Astronaut";
 }
 
 int any_game_name::total_frames() const {
-    return 300;
+    return 600;
 }
 
 mj::game_result any_game_name::play([[maybe_unused]] const mj::game_data& data){
     // _player.update();
+    if (_player) {
+        _player->update(bn::span<const platform>(_platforms, 3));
 
-    mj::game_result result(victory(), false);
-    return result;
+        if (_player->y() > 70) {
+            _has_lost = true;
+        }
+    }
+
+    return mj::game_result(victory(), false);
+
 }
 
 bool any_game_name::victory() const {
-    return false;
+    return _player && _player->y() < -40;
 }
 
 void any_game_name::fade_in([[maybe_unused]]const mj::game_data& data)

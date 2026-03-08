@@ -2,9 +2,11 @@
 #define ANY_GAME_NAME_H
 
 #include <bn_sprite_ptr.h>
-
+#include "bn_optional.h"
+#include "bn_fixed.h"
 #include "mj/mj_game.h"
-#include "aub/player.h"
+#include "any_player.h"
+#include "bn_sprite_items_astronaut.h"
 
 namespace any {
 
@@ -66,8 +68,13 @@ namespace any {
      void fade_out(const mj::game_data& data) override;
 
     private:
-        //the character that the player can move
-     //    player _player;
+     //the character that the player can move
+     bn::optional<bn::sprite_ptr> _astronaut_sprite;
+     bn::optional<player> _player;
+     bool _has_lost = false;
+
+     platform _platforms[3];
+
 };
 
 }
