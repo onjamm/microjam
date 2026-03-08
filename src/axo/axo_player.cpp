@@ -27,7 +27,7 @@ static bn::rect create_bounding_box(bn::sprite_ptr _sprite, bn::size box_size)
  */
 player::player(bn::fixed_point starting_position, bn::fixed speed, bn::size player_size) :
     _sprite(bn::sprite_items::axo_axolotl.create_sprite(starting_position)),
-    _speed(speed)
+    _speed(speed),
     _size(player_size)
     {}
 
@@ -63,9 +63,5 @@ void player::update() {
     }
 }
 
-bool player::still_alive() const {
-    // We'll define this later.
-    // return _alive;
-}
 
 }

@@ -88,7 +88,7 @@ mj::game_result axo_aquatic_galaxy_defense::play([[maybe_unused]] const mj::game
  * In this particular microgame the player wins if they make the ball leave the screen.
  */
 bool axo_aquatic_galaxy_defense::victory() const {
-    return _player.still_alive();
+    return false;
 }
 
 /**

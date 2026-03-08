@@ -35,8 +35,6 @@ class player {
          * Reads from the d-pad and moves the player by one frame accordingly.
          */
         void update();
-
-        bool still_alive() const;
     
     private:
         // The sprite to display the player
