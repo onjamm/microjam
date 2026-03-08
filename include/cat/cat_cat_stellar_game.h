@@ -6,6 +6,7 @@
 #include "bn_optional.h"
 #include "bn_array.h"
 #include "cat/cat_player.h"
+#include "bn_regular_bg_ptr.h"
 
 namespace cat
 {
@@ -79,6 +80,8 @@ namespace cat
         int _stars_collected;
 
         void _check_collection();
+
+        bn::regular_bg_ptr _background;
 };
 }
 

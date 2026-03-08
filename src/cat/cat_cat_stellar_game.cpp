@@ -3,6 +3,7 @@
 #include "mj/mj_game_list.h"
 
 #include "bn_sprite_items_cat_star.h"
+#include "bn_regular_bg_items_cat_background.h"
 
 
 // add an anonymous namespace after your includes but before 
@@ -29,7 +30,8 @@ namespace cat
 cat_cat_stellar_game::cat_cat_stellar_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
     mj::game("cat"),
     _player({0, 0}, 2),
-    _stars_collected(0)
+    _stars_collected(0),
+    _background(bn::regular_bg_items::cat_background.create_bg(0, 0))
     {
         for(int i = 0; i < _total_stars; ++i) {
             bn::fixed x = bn::fixed(data.random.get_int(200)) - 100; // Random x between -100 and 100
