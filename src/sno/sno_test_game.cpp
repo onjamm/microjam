@@ -53,7 +53,7 @@ namespace sno
             _player_captured = true;
         }
 
-        mj::game_result result(victory(), false);
+        mj::game_result result(_player_captured, false);
         return result;
     }
 
@@ -61,7 +61,7 @@ namespace sno
     {
         // Player wins by surviving (staying out of the black hole)
         // Player loses if captured - returning false here means they lose
-        return !_player_captured && _player.out_of_bounds();
+        return !_player_captured;
     }
 
     void sno_test_game::fade_in([[maybe_unused]] const mj::game_data &data)
