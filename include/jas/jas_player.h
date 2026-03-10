@@ -21,7 +21,7 @@ namespace jas
         static constexpr int MIN_Y = -bn::display::height() / 2;
 
         // The Velocity the player can land at before crashing
-        static constexpr int CRASH_VELOCITY = 2;
+        static constexpr bn::fixed CRASH_VELOCITY = 2;
         static constexpr bn::fixed BOOST_ACCELERATION = 0.05;
 
     public:
