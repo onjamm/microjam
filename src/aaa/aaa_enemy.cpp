@@ -13,6 +13,7 @@ namespace aaa
     aaa_enemy::aaa_enemy(bn::fixed_point starting_position, bn::fixed speed) : _sprite(bn::sprite_items::aaa_enemy.create_sprite(starting_position)),
                                                                                _speed(speed)
     {
+        _sprite.set_z_order(3); // its sprite layer order under players
     }
 
     void aaa_enemy::update()
