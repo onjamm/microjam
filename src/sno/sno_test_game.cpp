@@ -43,9 +43,9 @@ namespace sno
         if(difficulty == mj::difficulty_level::EASY) {
             return 2;
         } else if(difficulty == mj::difficulty_level::NORMAL) {
-            return 1;
+            return 1.5;
         } 
-        return .5;
+        return 1;
     }
 
 
