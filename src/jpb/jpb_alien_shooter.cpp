@@ -23,7 +23,7 @@ namespace jpb {
     {}
 
     bn::string<16> jpb_alien_shooter::title() const {
-        return "placeholder";
+        return "Shoot the aliens!";
     }
 
     int jpb_alien_shooter::total_frames() const {

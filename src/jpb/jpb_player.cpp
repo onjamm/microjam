@@ -3,29 +3,29 @@
 #include "bn_sprite_items_jpb_ship.h"
 
 namespace jpb {
-    jpb_player::jpb_player(bn::fixed_point starting_position, bn::fixed_point enemy_position, bn::fixed _speed) :
-        player_sprite(bn::sprite_items::jpb_ship.create_sprite(starting_position)),
-        enemy_sprite(bn::sprite_items::jpb_ship.create_sprite(enemy_position)),
-        speed(_speed)
+    jpb_player::jpb_player(bn::fixed_point starting_position, bn::fixed_point enemy_position, bn::fixed speed) :
+        _player_sprite(bn::sprite_items::jpb_ship.create_sprite(starting_position)),
+        _enemy_sprite(bn::sprite_items::jpb_ship.create_sprite(enemy_position)),
+        _speed(_speed)
     {}
 
     void jpb_player::update() {
         if(bn::keypad::left_held()) {
-            player_sprite.set_x(player_sprite.x() - speed);
+            _player_sprite.set_x(_player_sprite.x() - _speed);
         }
         if(bn::keypad::right_held()) {
-            player_sprite.set_x(player_sprite.x() + speed);
+            _player_sprite.set_x(_player_sprite.x() + _speed);
         }
         if(bn::keypad::up_held()) {
-            player_sprite.set_y(player_sprite.y() - speed);
+            _player_sprite.set_y(_player_sprite.y() - _speed);
         }
         if(bn::keypad::down_held()) {
-            player_sprite.set_y(player_sprite.y() + speed);
+            _player_sprite.set_y(_player_sprite.y() + _speed);
         }
     }
 
     // We'll improve this to have bounding boxes next wave
     bool jpb_player::enemy_intersect() const {
-        return player_sprite.x() == enemy_sprite.x() && player_sprite.y() == enemy_sprite.y();
+        return _player_sprite.x() == _enemy_sprite.x() && _player_sprite.y() == _enemy_sprite.y();
     }
 }
