@@ -1,11 +1,15 @@
 #include <bn_keypad.h>
+#include <bn_vector.h>
 
 #include "axo/axo_player.h"
 #include "axo/axo_obstacle.h"
+#include "axo/axo_bubble.h"
 #include "bn_sprite_items_axo_axolotl.h"
 
 // All game functions/classes/variables/constants scoped to the namespace
 namespace axo {
+
+bn::vector<bubble, 50> bubbles = {};
 
 /**
  * player constructor
@@ -36,6 +40,15 @@ void player::update() {
     }
     if(bn::keypad::down_held()) {
         _sprite.set_y(_sprite.y() + _speed);
+    }
+
+    if(bn::keypad::a_pressed() || bn::keypad::b_pressed()) {
+        bubbles.push_back(bubble(_sprite.x(), _sprite.y(), BUBBLE_SPEED, BUBBLE_SIZE
+        ));
+    }
+
+    for(bubble& b : bubbles) {
+        b.update();
     }
 
     // Keeps player from escaping the screen.

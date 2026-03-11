@@ -46,12 +46,10 @@ class axo_aquatic_galaxy_defense : public mj::game
         
         /**
          * Returns whether the player has won the microgame.
-         * 
-         * In this particular microgame the player wins if they make the ball leave the screen.
          */
         bool victory() const override;
 
-                /**
+        /**
          * Called repeatedly as the game fades into view. Unused for this particular microgame.
          * 
          * @param data shared information, such as a rng and number of frames left in the microgame

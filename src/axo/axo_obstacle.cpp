@@ -1,7 +1,5 @@
 #include "axo/axo_obstacle.h"
 
-#include <bn_keypad.h>
-
 #include "bn_sprite_items_axo_obstacle.h"
 
 // All game functions/classes/variables/constants scoped to the namespace
