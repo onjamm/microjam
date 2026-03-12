@@ -86,4 +86,5 @@ namespace jpb {
     void jpb_alien_shooter::fade_out([[maybe_unused]] const mj::game_data& data) {
 
     }
+    
 }
