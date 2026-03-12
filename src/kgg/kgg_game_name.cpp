@@ -19,6 +19,7 @@ kgg_game_name::kgg_game_name([[maybe_unused]] int completed_games, [[maybe_unuse
 {
 }
 
+
 bn::string<16> kgg_game_name::title() const
 {
     return "move left right";
