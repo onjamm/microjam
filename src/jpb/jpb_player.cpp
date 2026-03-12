@@ -5,6 +5,7 @@
 #include "bn_vector.h"
 
 namespace jpb {
+
     
     bn::rect create_bounding_box(bn::sprite_ptr sprite, bn::size box_size) {
         return bn::rect(sprite.x().round_integer(),
@@ -12,6 +13,7 @@ namespace jpb {
                         box_size.width(),
                         box_size.height());
     }
+
 
     jpb_player::jpb_player(bn::fixed_point starting_position, bn::size size, bn::fixed speed) :
         _player_sprite(bn::sprite_items::jpb_ship.create_sprite(starting_position)),
