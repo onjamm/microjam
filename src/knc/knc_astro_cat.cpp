@@ -93,55 +93,49 @@ namespace knc {
         _background.update();
         _cat.update();
 
-
         for (planet& p : _planets) {
             p.update();
             if(p.off_screen()){
                 p = planet(bn::fixed_point(bn::fixed(data.random.get_int(200)) - 100, -80), speed);
             }
         }
-        // update all shooting star
-    for(shooting_star& s : _stars) {
-        s.update();
-        if(s.off_screen()) {
-            s = shooting_star(bn::fixed_point(-120, bn::fixed(data.random.get_int(140)) - 70), speed);
-        }
-    }
 
-        // hard mode
-        if(_difficulty == mj::difficulty_level::HARD) 
-    {
-        // count down delay, then activate enemy
-        if(_enemy1_delay > 0) {
-            _enemy1_delay--;
-            if(_enemy1_delay == 0) {
-                bn::fixed y = bn::fixed(data.random.get_int(100)) - 50;
-                _enemy1 = enemy(bn::fixed_point(-120, y), speed, 1);
+        // update all shooting stars
+        for(shooting_star& s : _stars) {
+            s.update();
+            if(s.off_screen()) {
+                s = shooting_star(bn::fixed_point(-120, bn::fixed(data.random.get_int(140)) - 70), speed);
             }
         }
-    }
 
-        // if star hit cat, end game
+        // hard mode — update enemy (delay, spawn, move, respawn)
+        if(_difficulty == mj::difficulty_level::HARD)
+        {
+            _update_enemy(data, speed);
+        }
 
+        // collision: planets
         for(planet& p : _planets) {
-        if(p.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
-            _hit = true;
+            if(p.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
+                _hit = true;
+            }
         }
-    }
+
+        // collision: shooting stars
         for(shooting_star& s : _stars) {
-        if(s.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
-        _hit = true;
+            if(s.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
+                _hit = true;
+            }
         }
-    }
 
-        // HARD ONLY — count down delay, then activate enemy
-        if(_difficulty == mj::difficulty_level::HARD && _enemy1_delay == 0) { //difficulty level
-        if(_enemy1.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
-            _hit = true;
+        // collision: enemy (hard only, after delay expires)
+        if(_difficulty == mj::difficulty_level::HARD && _enemy1_delay == 0) {
+            if(_enemy1.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
+                _hit = true;
+            }
         }
-    }
 
-    // end game if cat got hit
+        // end game if cat got hit
         return mj::game_result(_hit, false);
     }
 
@@ -157,4 +151,3 @@ MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
-
