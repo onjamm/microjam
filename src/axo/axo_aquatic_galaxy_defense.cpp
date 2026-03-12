@@ -39,15 +39,13 @@ namespace axo
 axo_aquatic_galaxy_defense::axo_aquatic_galaxy_defense([[maybe_unused]] int completed_games, 
     [[maybe_unused]] const mj::game_data& data) :
         mj::game("axo"),
-        _player(player({0, 20}, 
-        _recommended_player_speed(recommended_difficulty_level(completed_games, data)), 
-        PLAYER_SIZE)),
+        _player(player({0, 20},2, PLAYER_SIZE)),
         _obstacles()
         {
             //spawn 10 obstacles, top of screen with varying x values
             for(int i = 0; i < 10; i++) {
                 _obstacles.push_back(obstacle(-bn::display::width() / 2 + 20 + (i * 30), 
-                -bn::display::height(), 1, OBSTACLE_SIZE));
+                -bn::display::height(),_recommended_player_speed(recommended_difficulty_level(completed_games, data)), OBSTACLE_SIZE));
             }
         }
 
@@ -147,9 +145,9 @@ bn::fixed axo_aquatic_galaxy_defense::_recommended_player_speed(mj::difficulty_l
     if(difficulty == mj::difficulty_level::EASY) {
         return 1;
     } else if (difficulty == mj::difficulty_level::NORMAL) {
-        return .5;
+        return 1.3;
     } 
-    return .3;
+    return 1.5;
 }
 
 }
