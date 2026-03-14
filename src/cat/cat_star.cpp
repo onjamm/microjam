@@ -6,7 +6,7 @@ namespace cat
     star::star(int x, int y) :
         _sprite(bn::sprite_items::cat_star.create_sprite(x, y)),
         _idle_anim(bn::create_sprite_animate_action_forever(
-            _sprite, 8, bn::sprite_items::cat_star.tiles_item(), 0, 1, 2
+            _sprite, 8, bn::sprite_items::cat_star.tiles_item(), 0, 1, 2, 3
         ))
     {
     }
@@ -36,7 +36,7 @@ namespace cat
 
         _collected = true;
         _idle_anim.reset();
-        _sprite.set_tiles(bn::sprite_items::cat_star.tiles_item().create_tiles(3));
+        _sprite.set_tiles(bn::sprite_items::cat_star.tiles_item().create_tiles(4));
         _burst_timer = 8;
     }
 }

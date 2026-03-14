@@ -20,7 +20,7 @@ namespace cat
 
     private:
         bn::sprite_ptr _sprite;
-        bn::optional<bn::sprite_animate_action<3>> _idle_anim;
+        bn::optional<bn::sprite_animate_action<4>> _idle_anim;
         bool _collected = false;
         int _burst_timer = 0;
     };
