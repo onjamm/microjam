@@ -10,7 +10,7 @@
 #include <bn_color.h>
 #include <bn_keypad.h>
 #include <bn_fixed_point.h>
-
+// Tutor debug
 #include "bn_sprite_items_mj_dot.h"
 
 namespace mj {
@@ -28,7 +28,8 @@ chooser_scene::chooser_scene(core& core) :
             core.small_text_generator(),
             core.big_text_generator(),
             core.random(),
-            300
+            300,
+            true // Do not play any music/sounds from the game constructors on the menu screen
         };
         int y = Y_START;
         text_generator.generate({X_START, y}, "All Games", _game_name_sprites);
