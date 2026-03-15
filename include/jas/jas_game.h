@@ -6,6 +6,8 @@
 #include "mj/mj_game.h"
 #include "jas/jas_player.h"
 #include "jas/jas_planet.h"
+#include "jas/jas_text.h"
+
 
 // All game functions/classes/variables/constants scoped to the namespace
 namespace jas
@@ -75,7 +77,11 @@ namespace jas
         // The planet
         planet _planet;
 
+        // The text
+        text _text;
+
         bn::fixed _recommended_difficulty_multiplier(mj::difficulty_level difficulty);
+        
 };
 }
 

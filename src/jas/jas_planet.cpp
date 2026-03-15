@@ -15,7 +15,7 @@ namespace jas
    * @param position the location to put the planet
    */
   planet::planet() : // Use regular_bg_items and create_bg
-                     _bg(bn::regular_bg_items::jas_planet_bg.create_bg(PLANET_POSITION))
+     _bg(bn::regular_bg_items::jas_planet_bg.create_bg(PLANET_POSITION))
   {
     // Backgrounds use set_priority instead of set_z_order
     _bg.set_priority(3);
