@@ -37,7 +37,7 @@ _background(bn::regular_bg_items::kgg_background.create_bg())
 
 bn::string<16> kgg_game_name::title() const
 {
-    return "move left right";
+    return "Move Left Right";
 }
 
 int kgg_game_name::total_frames() const
