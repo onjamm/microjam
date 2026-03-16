@@ -6,7 +6,6 @@
 
 #include "bn_sprite_items_jas_lander.h"
 #include "bn_sprite_items_jas_flames.h"
-#include "bn_sprite_items_jas_dot.h" // Using the dot as a placeholder for the explosion sprite
 #include "bn_sprite_items_jas_explosion.h"
 #include "jas_player.h"
 
@@ -69,7 +68,6 @@ namespace jas
         _flame_action.update();
     }
 
-    // Currently using the dot as a placeholder sprite.
     void player::explode()
     {
         _sprite.set_item(bn::sprite_items::jas_explosion);
