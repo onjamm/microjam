@@ -67,9 +67,11 @@ namespace aaa
         bn::vector<aaa_Bullet, 25> _bullets;
         bn::fixed _recommended_enemy_kill(mj::difficulty_level difficulty);
         bn::fixed _asteroids;
-        int _hits;
+        bn::vector<bn::sprite_ptr, 3> _hpSprites;
+        int _hp;
         void _checkHit(bn::vector<aaa_enemy, 12> &enemies, bn::vector<aaa_Bullet, 25> &bullets, bn::fixed &asteroids);
         bool _outOfBounds(aaa_Bullet bullet);
+        void _updateHP(int &hp);
     };
 }
 

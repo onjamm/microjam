@@ -1,9 +1,11 @@
 #include <bn_keypad.h>
+#include <bn_sprite_item.h>
 
 #include "aaa_planetoid.h"
 #include "mj/mj_game_list.h"
 #include "mj/mj_game_data.h"
 #include "bn_display.h"
+#include "bn_sprite_items_aaa_heart.h"
 #include <bn_core.h>
 
 namespace
@@ -28,7 +30,7 @@ namespace aaa
                                                                                                                        _player(bn::fixed_point(0, 0))
     {
         _asteroids = _recommended_enemy_kill(recommended_difficulty_level(completed_games, data));
-        _hits = 0;
+        _hp = 3;
 
         for (int i = 0; i < _enemies.max_size(); i++)
         {
@@ -69,6 +71,7 @@ namespace aaa
     mj::game_result aaa_planetoids::play([[maybe_unused]] const mj::game_data &data)
     {
         _player.update();
+        _updateHP(_hp);
 
         if (bn::keypad::a_pressed())
         {
@@ -83,10 +86,10 @@ namespace aaa
             _enemies[i].update();
             if (_enemies[i].getRect().intersects(_player.getRect()))
             {
-                _hits++;
+                _hp--;
                 _asteroids = _asteroids - 1; // Even if the asteroid hits the player, it still counts as towards the win conditon
                 _enemies.erase(_enemies.begin() + i);
-                return mj::game_result(_hits == 3, false); // the game will end if the player is hit 3 times.
+                return mj::game_result(_hp == 0, false); // the game will end if the player is hit 3 times.
             }
         }
 
@@ -121,17 +124,19 @@ namespace aaa
         return 10;
     }
 
-    void aaa_planetoids::_checkHit(bn::vector<aaa_enemy, 12> &enemies, bn::vector<aaa_Bullet, 25> &bullets, bn::fixed &asteroids){
+    void aaa_planetoids::_checkHit(bn::vector<aaa_enemy, 12> &enemies, bn::vector<aaa_Bullet, 25> &bullets, bn::fixed &asteroids)
+    {
         // I am aware that this is a nested for loop, but trying to make this operate inside the classes would have required passing in the information for the enemy vector
         // I am not at this time able to dedicate that much mental power to solve this, so i instead have a nested loop to check each bullet to each enemy
-        for (int i = bullets.size() - 1; i >= 0; i--){
+        for (int i = bullets.size() - 1; i >= 0; i--)
+        {
             bullets[i].update();
 
-            
+            for (int j = 0; j < enemies.size(); j++)
+            {
+                if (bullets[i].getRect().intersects(enemies[j].getRect()))
+                {
 
-            for (int j = 0; j < enemies.size(); j++){
-                if (bullets[i].getRect().intersects(enemies[j].getRect())){
-                    
                     asteroids = asteroids - 1;
                     if (!_enemies[j].is_destroyed()) // this makes sure that the enemies destroyed boolean isnt already toggle to prevent duplicate calls
                     {
@@ -144,15 +149,26 @@ namespace aaa
                     }
                 }
             }
-            if (_outOfBounds(bullets[i])){
+            if (_outOfBounds(bullets[i]))
+            {
                 bullets.erase(bullets.begin() + i);
             }
         }
     }
 
-    bool aaa_planetoids::_outOfBounds(aaa_Bullet bullet){
+    bool aaa_planetoids::_outOfBounds(aaa_Bullet bullet)
+    {
         bn::fixed bX = bullet.BulletPos().x();
         bn::fixed bY = bullet.BulletPos().y();
         return bX > bn::display::width() / 2 || bY > bn::display::height() / 2 || bX < -bn::display::width() / 2 || bY < -bn::display::height() / 2;
+    }
+
+    void aaa_planetoids::_updateHP(int &hp){
+        int x = -100;
+        _hpSprites.clear();
+        for (int i = 0; i < hp; i++){
+            _hpSprites.push_back(bn::sprite_items::aaa_heart.create_sprite(x, -70));
+            x += 20;
+        }
     }
 }
