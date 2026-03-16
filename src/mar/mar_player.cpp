@@ -35,19 +35,11 @@ namespace mar
         // If up is held moves up. If down is held moves down. Otherwise, moves down at a slower speed to simulate gravity.
         if (bn::keypad::up_held() && _sprite.y() > MIN_Y)
         {
-            _sprite.set_y(_sprite.y() - _speed - 2);
-            pause_timer = 30;
+            _sprite.set_y(_sprite.y() - _speed);
         }
-        // count down the pause timer if it's greater than 0, which will cause the player to fall slower for a short time after moving up
-        if (pause_timer > 0 && !bn::keypad::up_held())
-        {
-            --pause_timer;
-            _sprite.set_y(_sprite.y() + _speed / 8);
-        }
-
         else if (_sprite.y() < MAX_Y)
         {
-            _sprite.set_y(_sprite.y() + _speed / 2);
+            _sprite.set_y(_sprite.y() + _speed/4);
         }
 
         if (bn::keypad::down_held() && _sprite.y() < MAX_Y)
