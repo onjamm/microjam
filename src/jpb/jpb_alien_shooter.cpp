@@ -1,6 +1,7 @@
 #include "jpb/jpb_alien_shooter.h"
 #include "mj/mj_game_list.h"
 #include "bn_regular_bg_items_backdrop.h"
+#include "bn_sprite_animate_actions.h"
 
 
 namespace

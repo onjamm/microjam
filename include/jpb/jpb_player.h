@@ -8,6 +8,7 @@
 #include <bn_rect.h>
 #include <bn_size.h>
 #include <bn_vector.h>
+#include <bn_sprite_animate_actions.h>
 
 #include "jpb/jpb_enemy.h"
 #include "jpb/jpb_missile.h"
@@ -32,10 +33,14 @@ class jpb_player {
     
         private:
             bn::sprite_ptr _player_sprite;
+            bn::sprite_animate_action<3> _sprite_action;
             bn::fixed _speed;
             bn::size _player_size;
             bn::rect _player_box;
             int _missile_count;
+
+            void _update_position();
+            void _update_animation();
 };
 
 }

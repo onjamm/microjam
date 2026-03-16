@@ -7,7 +7,6 @@
 #include "jpb/jpb_missile.h"
 #include <bn_vector.h>
 #include <bn_sprite_text_generator.h>
-#include "bn_regular_bg_items_backdrop.h"
 #include <bn_regular_bg_ptr.h>
 
 namespace jpb {
