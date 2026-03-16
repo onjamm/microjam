@@ -71,7 +71,7 @@ namespace jas
     // Currently using the dot as a placeholder sprite.
     void player::explode()
     {
-        _sprite.set_item(bn::sprite_items::jas_dot.create_sprite(_sprite.x(),_sprite.y()));
+        _sprite.set_item(bn::sprite_items::jas_dot);
     }
 
     void player::engineOn(bn::fixed engine_thrust)
