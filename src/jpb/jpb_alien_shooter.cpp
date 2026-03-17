@@ -3,6 +3,8 @@
 #include "bn_regular_bg_items_backdrop.h"
 #include "bn_sprite_animate_actions.h"
 
+#include "bn_sound_items.h"
+
 
 namespace
 {
@@ -31,7 +33,9 @@ namespace jpb {
                         ENEMY_SIZE)),
         _text_generator(data.text_generator),
         _background(bn::regular_bg_items::backdrop.create_bg(0, 0))
-    {}
+    {
+        play_sound(bn::sound_items::jpb_alien_shooter, completed_games, data);
+    }
 
     bn::string<16> jpb_alien_shooter::title() const {
         return "Shoot the alien";
