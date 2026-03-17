@@ -6,7 +6,6 @@
 #include <bn_sprite_ptr.h>
 
 #include "./mj/mj_core.h"
-#include "common_variable_8x16_sprite_font.h"
 
 namespace jas {
 
