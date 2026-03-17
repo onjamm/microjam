@@ -16,7 +16,7 @@ namespace mar
                            _speed(speed),
                            _rect(bn::rect(
                                starting_position.x().round_integer(),
-                               starting_position.y().round_integer(), 16, 16))
+                               starting_position.y().round_integer(), 14, 14))
     {
     }
 
