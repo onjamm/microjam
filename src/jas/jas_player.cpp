@@ -2,6 +2,7 @@
 
 #include <bn_math.h>
 #include <bn_keypad.h>
+#include "bn_log.h"
 
 #include "bn_sprite_items_templander.h"
 #include "jas_player.h"
@@ -18,11 +19,12 @@ namespace jas
      */
     player::player(bn::fixed_point starting_position, bn::fixed vertical_speed, bn::fixed gravity) : _sprite(bn::sprite_items::templander.create_sprite(starting_position)),
                                                                                                      _vertical_speed(vertical_speed),
-                                                                                                     _gravity(gravity)
+                                                                                                     _gravity(gravity),
+                                                                                                     _crashed(false)
     {
     }
     /**
-     * Moves the player based on vertical speed, changing when the boost button (B) is held.
+     * Moves the player based on vertical speed, changing when the boost button is held.
      */
     void player::update()
     {
