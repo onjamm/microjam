@@ -35,12 +35,12 @@ namespace mar
     private:
         // The sprite to display the enemy
         bn::sprite_ptr _sprite;
+        bn::sprite_animate_action<3> _sprite_action;
         // The pixels/frame the enemy moves in each dimension
         bn::fixed _speed;
     // The rectangle used for collision detection
         bn::rect _rect;
 
-        bn::sprite_animate_action<3> _sprite_action;
     };
 
 }
