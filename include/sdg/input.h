@@ -22,6 +22,14 @@ namespace sdg {
             * been inputted correctly yet.
             */
             bool code_is_correct() const;
+
+            const bn::vector<int, 10>& challenge() const;
+
+            // code progress
+            int progress() const;
+
+            // Keeps track if an incorrect input was inputted
+            bool _incorrect_input;
         private:
             // Default value for when no input is detected.
             int _input = -1;
