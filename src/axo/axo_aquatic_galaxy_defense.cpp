@@ -40,9 +40,9 @@ namespace axo
 axo_aquatic_galaxy_defense::axo_aquatic_galaxy_defense([[maybe_unused]] int completed_games, 
     [[maybe_unused]] const mj::game_data& data) :
         mj::game("axo"),
-        _player(player({0, 20},2, PLAYER_SIZE)),
-        _obstacles(),
-        _background(bn::regular_bg_items::axo_bg.create_bg(0, 0))
+        _player(player({0, 20}, 2, PLAYER_SIZE)),
+        _background(bn::regular_bg_items::axo_bg.create_bg(0, 0)),
+        _obstacles()
         {
             //spawn 10 obstacles, top of screen with varying y
             for(int i = 0; i < 10; i++) {
