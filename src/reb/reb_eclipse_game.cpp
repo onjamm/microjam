@@ -5,7 +5,7 @@
 #include "bn_sprite_animate_actions.h"
 
 #include "mj/mj_game_list.h"
-
+#include "bn_regular_bg_items_reb_space.h"
 #include "bn_sound_items.h"
 
 namespace
@@ -32,6 +32,7 @@ namespace reb
 
     reb_eclipse_game::reb_eclipse_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
         mj::game("reb"),
+        _background(bn::regular_bg_items::reb_space.create_bg()),
         _sunSprite(bn::sprite_items::reb_sun.create_sprite(sun_x,sun_y)),
         _earthSprite(bn::sprite_items::reb_earth.create_sprite(_earth_x,_earth_y)),
         _moon(_earth_x, _earth_y, moon_x_init, moon_y_init, _recommended_moon_speed(recommended_difficulty_level(completed_games, data))), // start above earth

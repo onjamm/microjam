@@ -2,6 +2,7 @@
 #define REB_ECLIPSE_GAME_H
 
 #include "bn_sprite_ptr.h"
+#include "bn_regular_bg_ptr.h"
 #include "mj/mj_game.h"
 #include "bn_sprite_items_reb_sun.h"
 #include "bn_sprite_items_reb_moon.h"
@@ -38,8 +39,9 @@ namespace reb
             [[nodiscard]] bool victory() const final;
 
             void fade_out(const mj::game_data& data) final;
-             
+
         private:
+            bn::regular_bg_ptr _background;
             bn::sprite_ptr _sunSprite;
             bn::sprite_ptr _earthSprite;
             moon _moon;
