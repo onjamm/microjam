@@ -87,6 +87,7 @@ namespace any {
      bn::fixed _moon_y = -60;
      bn::vector<bn::sprite_ptr, 8> _text_sprites;
      bn::optional<bn::regular_bg_ptr> _background;
+     int _completed_games;
 };
 
 }
