@@ -6,10 +6,7 @@
 namespace sdg {
 
 input::input(int difficulty, bn::random& random) : 
-_progress(0),
-_diff(difficulty),
- _random(random),
- _incorrect_input(false)
+_incorrect_input(false), _progress(0), _diff(difficulty), _random(random)
 {
     // loop to add random code inputs
     for (int i = 0; i < _diff; i++) {
