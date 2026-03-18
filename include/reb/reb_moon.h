@@ -15,7 +15,7 @@ namespace reb
             /**
              * Constructs the moon, locked to an orbit around the earth
              */
-            moon(bn::fixed earth_x, bn::fixed earth_y, bn::fixed orbit_radius, bn::fixed start_angle_degrees);
+            moon(bn::fixed earth_x, bn::fixed earth_y, bn::fixed orbit_radius, bn::fixed start_angle_degrees, bn::fixed speed_modifier);
 
             /** Reads keypad and updates position */
             void update();

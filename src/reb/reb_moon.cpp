@@ -7,13 +7,15 @@
 
 namespace reb
 {
-    moon::moon(bn::fixed earth_x, bn::fixed earth_y, bn::fixed orbit_radius, bn::fixed start_angle_degrees) : 
+    static constexpr int base_speed = 2.5;
+
+    moon::moon(bn::fixed earth_x, bn::fixed earth_y, bn::fixed orbit_radius, bn::fixed start_angle_degrees, bn::fixed speed_modifier) : 
         _moonSprite(bn::sprite_items::reb_moon.create_sprite(0,0)),
         _earth_x(earth_x),
         _earth_y(earth_y),
         _orbit_radius(orbit_radius),
         _angle(start_angle_degrees),
-        _angular_speed(2) // degrees per frame
+        _angular_speed(base_speed * speed_modifier) 
     {
         _update_sprite_position();
     }

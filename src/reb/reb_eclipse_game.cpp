@@ -23,16 +23,27 @@ namespace reb
     static constexpr int sun_x = -105; 
     static constexpr int sun_y = -0; 
     static constexpr int moon_x_init = 28; 
-    static constexpr int moon_y_init = 270; 
+    static constexpr int moon_y_init = 270;
+
+    bool solar_eclipse_check(bn::fixed, bn::fixed, bn::fixed, bn::fixed, bn::fixed, bn::fixed);
 
     reb_eclipse_game::reb_eclipse_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
         mj::game("reb"),
         _sunSprite(bn::sprite_items::reb_sun.create_sprite(sun_x,sun_y)),
         _earthSprite(bn::sprite_items::reb_earth.create_sprite(_earth_x,_earth_y)),
-        _moon(_earth_x, _earth_y, moon_x_init, moon_y_init), // start above earth
+        _moon(_earth_x, _earth_y, moon_x_init, moon_y_init, _recommended_moon_speed(recommended_difficulty_level(completed_games, data))), // start above earth
         _sunAnimation(bn::create_sprite_animate_action_forever(_sunSprite, 6, bn::sprite_items::reb_sun.tiles_item(), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)),
         _victory(false)
     {
+    }
+
+    bn::fixed reb_eclipse_game::_recommended_moon_speed(mj::difficulty_level difficulty) {
+        if(difficulty == mj::difficulty_level::EASY) {
+            return 2;
+        } else if (difficulty == mj::difficulty_level::NORMAL) {
+            return 1;
+        } 
+        return .5;
     }
 
     void reb_eclipse_game::fade_in([[maybe_unused]] const mj::game_data& data)
@@ -51,11 +62,23 @@ namespace reb
 
     bool reb_eclipse_game::victory() const
     {
-        return _victory;
+        // logic to check is earth is between sun and moon
+        return (solar_eclipse_check(sun_x, sun_y, _moon.x(), _moon.y(), _earth_x, _earth_y));
     }
 
     void reb_eclipse_game::fade_out([[maybe_unused]] const mj::game_data& data)
     {
     }
 
+    bool solar_eclipse_check(bn::fixed sun_x, bn::fixed sun_y, bn::fixed moon_x, bn::fixed moon_y, bn::fixed earth_x, bn::fixed earth_y)
+    {
+        // check if all three are in line
+        bn::fixed in_line = (earth_x - sun_x) * (moon_y - sun_y) - (earth_y - sun_y) * (moon_x - sun_x);
+        if (in_line != 0) return false;
+
+        // check the moon if the moon is in the middle
+        if (earth_x < moon_x) return false;
+
+        return true;
+    }
 }

@@ -38,7 +38,7 @@ namespace reb
             [[nodiscard]] bool victory() const final;
 
             void fade_out(const mj::game_data& data) final;
-
+             
         private:
             bn::sprite_ptr _sunSprite;
             bn::sprite_ptr _earthSprite;
@@ -47,6 +47,8 @@ namespace reb
             static constexpr bn::fixed _earth_x =  75;
             static constexpr bn::fixed _earth_y =   0;
             bool _victory;
+            bn::fixed _recommended_moon_speed(mj::difficulty_level difficulty);
+            
     };
 }
 
