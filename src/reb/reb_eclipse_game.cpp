@@ -6,6 +6,8 @@
 
 #include "mj/mj_game_list.h"
 
+#include "bn_sound_items.h"
+
 namespace
 {
     constexpr bn::string_view code_credits[] = { "Rebecca Riffle" };
@@ -36,6 +38,7 @@ namespace reb
         _sunAnimation(bn::create_sprite_animate_action_forever(_sunSprite, 6, bn::sprite_items::reb_sun.tiles_item(), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)),
         _victory(false)
     {
+        play_sound(bn::sound_items::reb_no_stars, completed_games, data);
     }
 
     bn::fixed reb_eclipse_game::_recommended_moon_speed(mj::difficulty_level difficulty) {
