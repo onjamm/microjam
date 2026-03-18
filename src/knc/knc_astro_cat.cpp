@@ -95,7 +95,9 @@ namespace knc {
             p.update();
             if(p.off_screen()){
                 p = planet(bn::fixed_point(bn::fixed(data.random.get_int(200)) - 100, -80), speed);
-            }
+                // play sound when planet fall
+                bn::sound_items::knc_planet_sound.play(); 
+    }
         }
 
         // update all shooting stars
