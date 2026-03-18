@@ -61,6 +61,7 @@ class player {
 
         void kill();
 
+        void destroy_bubble(int index);
         void clear_bubbles();
     
     private:
