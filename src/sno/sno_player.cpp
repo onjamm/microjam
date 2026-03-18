@@ -24,21 +24,44 @@ namespace sno
      */
     void player::update()
     {
-        if (bn::keypad::left_held())
+        bool moving = false;
+
+            if (bn::keypad::left_held())
         {
             _sprite.set_x(_sprite.x() - _speed);
+            moving = true;
         }
         if (bn::keypad::right_held())
         {
             _sprite.set_x(_sprite.x() + _speed);
+            moving = true;
         }
         if (bn::keypad::up_held())
         {
             _sprite.set_y(_sprite.y() - _speed);
+            moving = true;
         }
         if (bn::keypad::down_held())
         {
             _sprite.set_y(_sprite.y() + _speed);
+            moving = true;
+        }
+        if (moving)
+        {
+            if (_movement_sound_timer == 0)
+            {
+                bn::sound_items::sno_ufo_sound.play();
+            }
+            _movement_sound_timer++;
+            // should retrigger the sound every 30 frames
+            if (_movement_sound_timer >= 30)
+            {
+                _movement_sound_timer = 0;
+            }
+        }
+        else
+        {
+            _movement_sound_timer = 0;
         }
     }
 

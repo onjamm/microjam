@@ -4,6 +4,7 @@
 #include <bn_fixed_point.h>
 #include <bn_sprite_ptr.h>
 #include <bn_display.h>
+#include <bn_sound_items.h>
 
 // All game functions/classes/variables/constants scoped to the namespace
 namespace sno
@@ -70,6 +71,8 @@ namespace sno
         bn::sprite_ptr _sprite;
         // The pixels/frame the player moves in each dimension
         bn::fixed _speed;
+
+        int _movement_sound_timer = 0;
     };
 
 }
