@@ -7,7 +7,7 @@
 
 #include "bn_sound_items.h" 
 
-#include "bn_log.h"
+ 
 
 
 namespace {
@@ -40,7 +40,7 @@ _background(bn::regular_bg_items::kgg_background.create_bg())
 
     // boss music for this game
     play_sound(bn::sound_items::kgg_boss, completed_games, data); 
-
+    
 
 }
 
@@ -94,6 +94,8 @@ mj::game_result kgg_game_name::play([[maybe_unused]] const mj::game_data& data)
         // if rocks touch the player then game over
         if(r.collides_with(_player.x(), _player.y()))
         {
+            // play a bomb sound during the game when u hit rock
+            bn::sound_items::kgg_bomb.play();
             _victory = false;
             _game_over = true;
         }
