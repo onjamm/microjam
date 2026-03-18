@@ -16,7 +16,7 @@
 namespace {
     constexpr bn::string_view code_credits[] = { "Anthony Margullis, Yousif Sultan" };
     constexpr bn::string_view graphics_credits[] = { "Anthony Margullis, Yousif Sultan" };
-    constexpr bn::string_view sfx_credits[] = {""};
+    constexpr bn::string_view sfx_credits[] = {"sodatax"};
     constexpr bn::string_view music_credits[] = {"Anthony Margullis"};
 }
 
@@ -108,6 +108,10 @@ mj::game_result any_game_name::play([[maybe_unused]] const mj::game_data& data) 
 
     if (_player) {
         _player->update(bn::span<const platform>(_platforms, 3));
+
+        if (_player->dy() == -4.3) {
+            play_sound(bn::sound_items::spring_jump_sfx, _completed_games, data);
+        }
 
         if (_touched_moon()) { 
             return mj::game_result(true, true); // (finished, victory)
