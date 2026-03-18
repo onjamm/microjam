@@ -5,6 +5,8 @@
 #include "bn_keypad.h"
 #include "bn_math.h"
 
+#include "bn_sound_items.h"
+
 namespace reb
 {
     static constexpr int base_speed = 2.5;
@@ -25,11 +27,13 @@ namespace reb
         if(bn::keypad::right_held())
         {
             _angle -= _angular_speed;
+            bn::sound_items::reb_space1.play();
         }
 
         if(bn::keypad::left_held())
         {
             _angle += _angular_speed;
+            bn::sound_items::reb_space1.play();
         }
 
         // keep angle within 0 - 360
