@@ -124,6 +124,10 @@ void player::update() {
         _alive = false;
     }
 
+    void player::destroy_bubble(int index) {
+        bubbles.erase(bubbles.begin() + index);
+    }
+
     void player::clear_bubbles() {
         bubbles.clear();
     }
