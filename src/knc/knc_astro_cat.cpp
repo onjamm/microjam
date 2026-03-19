@@ -3,10 +3,10 @@
 #include "bn_sound_items.h"
 
 namespace {
-    constexpr bn::string_view code_credits[] = { "knc" };
-    constexpr bn::string_view graphics_credits[] = { "knc" };
-    constexpr bn::string_view sfx_credits[] = { "" };
-    constexpr bn::string_view music_credits[] = { "knc" };
+constexpr bn::string_view code_credits[] = { "knc" };
+constexpr bn::string_view graphics_credits[] = { "knc" };
+constexpr bn::string_view sfx_credits[] = { "qubodup (CC0, opengameart.org)" };
+constexpr bn::string_view music_credits[] = { "CodeManu (CC0, opengameart.org)" };
 }
 
 namespace knc {
