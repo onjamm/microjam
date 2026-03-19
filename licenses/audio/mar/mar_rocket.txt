@@ -1,0 +1,5 @@
+https://opengameart.org/content/rocket-fly-8-bit
+
+CC0 License
+
+This is a rocket or combustion propelled weapon flyby sound created in as3sfxr.
