@@ -8,6 +8,10 @@
 #include "bn_sprite_items_jas_flames.h"
 #include "bn_sprite_items_jas_explosion.h"
 #include "jas_player.h"
+#include "bn_sound_items.h"
+
+#include "bn_sound_items.h"
+#include "bn_sound_handle.h"
 
 // All game functions/classes/variables/constants scoped to the namespace
 namespace jas
@@ -25,6 +29,7 @@ namespace jas
                                                                                                      _crashed(false),
                                                                                                      _flame(bn::sprite_items::jas_flames.create_sprite(_sprite.x(), -100)),
                                                                                                      _flame_action(bn::create_sprite_animate_action_forever(_flame, 4, bn::sprite_items::jas_flames.tiles_item(), 0, 1, 2))
+                                                                                                     
     {
         //  Ensure sprite is visible
         _sprite.set_z_order(-10);
@@ -37,8 +42,17 @@ namespace jas
         // While the boost button is pressed
         if (bn::keypad::a_held()||bn::keypad::b_held()||bn::keypad::up_held())
         {
-            // Add BOOST_ACCELERATION to the player's speed.
+            // Add double the value of gravity to the player's speed.
+            // The player will boost twice as fast as they fall.
             engineOn(_gravity*2);
+        }
+        // The boost button is not being pressed.
+        else {
+            // Stop the sound if it's playing.
+            if (_thruster_sound) {
+                _thruster_sound->stop();
+                _thruster_sound.reset();
+            }
         }
         // If the player has already crashed, or is about to
         if (crashed() || (on_surface() && at_crash_velocity()))
@@ -71,11 +85,27 @@ namespace jas
 
     void player::explode()
     {
+        bn::sound_items::jas_explosion.play();
         _sprite.set_item(bn::sprite_items::jas_explosion);
     }
 
     void player::engineOn(bn::fixed engine_thrust)
     {
+        // Sound
+        // Start sound if it doesn't exist yet
+        if (!_thruster_sound) {
+            // sound_item::play will return the sound_handle (which is needed to check if the sound is playing )
+            _thruster_sound = bn::sound_items::jas_thruster.play(0.75);
+        }
+        // If the sound exists but stopped, restart it
+        //      The operator -> is "opening" and "using what's inside" the optional container.
+        //      I only 75% understand it myself but that's the explanation ChatGPT gives me.
+        //      Think about it like a field. " optional.thevalueinsideofit.active() "
+        else if (!_thruster_sound->active()) {
+            // Restart sound
+            _thruster_sound = bn::sound_items::jas_thruster.play(0.55);
+        }
+        // Physics
         _vertical_speed -= engine_thrust;
     }
 

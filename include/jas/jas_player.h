@@ -6,6 +6,8 @@
 #include <bn_display.h>
 #include <bn_sprite_animate_actions.h>
 
+#include "bn_sound_items.h"
+
 // All game functions/classes/variables/constants scoped to the namespace test
 namespace jas
 {
@@ -86,6 +88,15 @@ namespace jas
 
         bn::sprite_ptr _flame;
         bn::sprite_animate_action<4> _flame_action;
+
+        // This is being implemented with the help of ChatGPT since we never talked about it.
+        // The optional is a type that might contain something, and might not.
+        // true == bn::optional returns true if there is a variable in it.
+        // (*bn::optional) is the variable inside of it.
+        // true == (*bn::optional) returns true if the variable inside of it is true.
+        // -> allows doing bn::optional->function().
+        // Same things as (*bn::optional).function()
+        bn::optional<bn::sound_handle> _thruster_sound;
     };
 
 }
