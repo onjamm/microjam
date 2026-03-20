@@ -14,6 +14,10 @@
 #include "axo/axo_hitbox.h"
 #include "axo/axo_bubble.h"
 
+// For sounds produced by player / game
+#include "bn_sound_items.h"
+#include "bn_sound.h"
+
 // All game functions/classes/variables/constants scoped to the namespace
 namespace axo {
 
@@ -57,6 +61,7 @@ class player {
 
         void kill();
 
+        void destroy_bubble(int index);
         void clear_bubbles();
     
     private:
@@ -69,6 +74,7 @@ class player {
         bn::size _size;
         hitbox _hitbox;
         bool _alive = true;
+        bool _is_animating = false;
         bn::vector<bubble, 50> bubbles = {};
 };
 
