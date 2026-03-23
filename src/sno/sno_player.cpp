@@ -48,6 +48,8 @@ namespace sno
         }
         if (moving)
         {
+            // Only play the movement sound at the start of movement (timer == 0)
+            // to avoid retriggering the sound effect every single frame
             if (_movement_sound_timer == 0)
             {
                 bn::sound_items::sno_ufo_sound.play();
@@ -55,16 +57,21 @@ namespace sno
             _movement_sound_timer++;
             // should retrigger the sound every 30 frames
             if (_movement_sound_timer >= 30)
-            {
+            {   
                 _movement_sound_timer = 0;
             }
         }
         else
         {
+            // if stopped and not moving reset timer
             _movement_sound_timer = 0;
         }
     }
 
+    /**
+     * Wraps the player to the opposite side of the screen when they cross an edge.
+     * Left/right edges wrap horizontally, top/bottom edges wrap vertically.
+    */
     void player::screenWrap()
     {
         bn::fixed_point pos = _sprite.position();
@@ -98,11 +105,16 @@ namespace sno
                _sprite.y() > MAX_Y ||
                _sprite.y() < MIN_Y;
     }
-
+     /**
+     * Pulls the player toward the black hole by a fixed 0.75 pixels per frame
+     * in each axis independently. This simulates gravity and is applied every
+     * frame regardless of player input.
+     * @param bh_position the position of the black hole to be attracted toward
+     */
     void player::attraction(bn::fixed_point bh_position)
     {
-        bn::fixed_point pos = _sprite.position();
-
+        bn::fixed_point pos = _sprite.position(); // gets the current user's position
+        //pulls the player .75px towards the black hole on the x axis
         if (pos.x() < bh_position.x())
         {
             _sprite.set_x(pos.x() + .75);
@@ -111,7 +123,7 @@ namespace sno
         {
             _sprite.set_x(pos.x() - .75);
         }
-
+        //pulls the player .75px towards the black hole on the y axis.
         if (pos.y() < bh_position.y())
         {
             _sprite.set_y(pos.y() + .75);
@@ -126,9 +138,16 @@ namespace sno
     {
         return _sprite.position();
     }
-
+     /**
+     * Checks whether the player is within a square bounding box of another position.
+     * Uses a square (not circular) collision check for simplicity.
+     * @param other_position the position to check collision against
+     * @param perimeter how many pixels in each direction counts as a collision
+     * @return true if the player overlaps the perimeter box around other_position
+     */
     bool player::collides_with(bn::fixed_point other_position, int perimeter) const
     {
+        //calculates the distance from the player to the black hole perimeter
         bn::fixed dx = _sprite.x() - other_position.x();
         bn::fixed dy = _sprite.y() - other_position.y();
 

@@ -27,10 +27,12 @@ MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 // All game functions/classes/variables/constants scoped to the namespace
 namespace sno
 {
+    // the official term for this is the member initializer list, or a constructor initializer list.
     sno_test_game::sno_test_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data &data) : mj::game("sno"),
                                                                                                                      _player(sno::player({50, 30}, _recommended_player_speed(recommended_difficulty_level(completed_games, data)))),
                                                                                                                      _black_hole(sno::black_hole({0, 0}))
     {
+        //constructor for our game
         play_sound(bn::sound_items::sno_bg_theme, completed_games, data);
     }
     bn::string<16> sno_test_game::title() const
@@ -39,6 +41,7 @@ namespace sno
     }
 
     // Returns a stronger black hole attraction the harder the difficulty
+    // by manipulating the speed of the player
     bn::fixed sno_test_game::_recommended_player_speed(mj::difficulty_level difficulty)
     {
         if (difficulty == mj::difficulty_level::EASY)
